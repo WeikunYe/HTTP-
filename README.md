@@ -79,3 +79,65 @@ _课程地址：https://www.bilibili.com/video/BV1js411g7Fw?p=4_
 学习结束后，返回 XAMPP Control Panel 点击 Stop 停止 Apache 服务
 
 ![stop apache](./run-03.png)
+
+## 添加 PHP 环境变量
+
+**如果在命令行运行 php 文件，我们需要添加 PHP 环境变量**
+
+**这个是针对 Windows 系统的，Mac 的我忘了，大家可以搜一下，不是很难**
+
+打开命令行，输入
+
+```bash
+php
+```
+
+你会得到如下结果，这个说明系统不识别 php 指令，我们需要将 php 指令添加到系统环境变量中
+
+![en01](./en-01.png)
+
+首先在系统中搜索 Environment Variables（中文搜索：环境变量）
+
+![en02](./en-02.png)
+
+点击 Environment variables...
+
+![en03](./en-03.png)
+
+选中 Path 点击 Edit
+
+![en04](./en-04.png)
+
+点击 Browser 选择你安装的 XAMPP 目录下 php 目录
+
+![en05](./en-05.png)
+
+添加完成后你应该有类似如下记录（路径根据你的安装路径会有变化，我是安装在 D 盘）。然后一直点击 OK 关掉所有 Environment variables 相关的小窗口即可
+
+![en06](./en-06.png)
+
+**此时记如果你的 cmd 是开着的，记得关掉打开一个新的**
+
+在命令行输入
+
+```bash
+php -v
+```
+
+应该可以成功看到 php 版本信息
+
+![en07](./en-07.png)
+
+**此时我们可以使用 php + 路径+文件名 来运行 php 文件**
+
+我用的是 VS Code 终端，cmd 所在目录为 D:\xampp\htdocs\learn-http\
+
+所以路径直接写 `lesson1/01.php` 即可
+
+```bash
+php lesson1/01.php
+```
+
+输出如下
+
+![en08](./en-08.png)
