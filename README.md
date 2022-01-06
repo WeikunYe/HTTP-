@@ -108,7 +108,7 @@ php
 
 ![en04](./en-04.png)
 
-点击 Browser 选择你安装的 XAMPP 目录下 php 目录
+点击 Browse... 选择你安装的 XAMPP 目录下 php 目录
 
 ![en05](./en-05.png)
 
