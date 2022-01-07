@@ -60,3 +60,15 @@ _请求和响应的基本格式相同_
 -   304：NOT MODIFIED 未修改（取的缓存，服务器返回 304，浏览器从缓存拿文件）
 -   307：重新定向中保存原有请求数据
 -   404：不存在
+
+## P5 Referer 头与防盗链
+
+### XAMPP Apache config
+
+XAMPP Apache 的 config 文件在这里：
+
+![apache-config](./images/p5-apache-config.png)
+
+然后选择第一个 `Apache (httpd.conf)`
+
+改完 `mod_rewrite` 记得重启 Apache 服务
