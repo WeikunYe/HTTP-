@@ -2,6 +2,8 @@
 
 _课程地址：https://www.bilibili.com/video/BV1js411g7Fw?p=4_
 
+_笔记和代码看[这里](./notes-and-codes/README.MD)_
+
 **我没有看老师之前关于 php 的教程，所以用的自己熟悉的 XAMPP 来配置环境**
 
 ## 下载 XAMPP
