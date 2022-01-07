@@ -61,7 +61,7 @@ _请求和响应的基本格式相同_
 -   307：重新定向中保存原有请求数据
 -   404：不存在
 
-## P5 Referer 头与防盗链
+## P6 Referer 头与防盗链
 
 ### XAMPP Apache config
 
