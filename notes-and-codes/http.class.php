@@ -6,7 +6,7 @@ interface proto
 
     function get();
 
-    function post();
+    function post($body);
 
     function close();
 }
@@ -49,8 +49,10 @@ class Http implements proto
         $this->header[] = $headerline;
     }
 
-    protected function setBody()
+    protected function setBody($body)
     {
+
+        $this->body[] = http_build_query($body);;
     }
 
     public function conn($url)
@@ -72,8 +74,15 @@ class Http implements proto
         return $this->response;
     }
 
-    public function post()
+    public function post($body = array())
     {
+        $this->setLine('POST');
+        $this->setHeader('Content-type: application/x-www-form-urlencoded');
+        $this->setBody($body);
+        $this->setHeader('Content-length: ' . strlen($this->body[0]));
+        $this->request();
+
+        return $this->response;
     }
 
     public function request()
@@ -100,3 +109,9 @@ class Http implements proto
 //$url = "http://www.example.com/";
 //$http = new Http($url);
 //echo $http->get();
+
+
+$url = 'http://localhost:5000/api/http-post';
+$http = new Http($url);
+
+echo $http->post(array('tit' => 'weikun', 'con' => 'haha', 'submit' => '留言'));
