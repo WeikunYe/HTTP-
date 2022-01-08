@@ -98,7 +98,7 @@ XAMPP Apache 的 config 文件在这里：
 </html>
 ```
 
-然后在项目跟目录下新建文件 `.htaccess`，添加如下内容
+然后在项目根目录下新建文件 `.htaccess`，添加如下内容
 
 ```
 RewriteEngine On
