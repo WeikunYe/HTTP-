@@ -71,4 +71,52 @@ XAMPP Apache 的 config 文件在这里：
 
 然后选择第一个 `Apache (httpd.conf)`
 
-改完 `mod_rewrite` 记得重启 Apache 服务
+此外，还需要修改第三个 `Apache (httpd-xampp.conf)`
+
+将 `Allowoverride AuthConfig` 改成 `Allowoverride All`
+
+两个文件改完后，记得重启 Apache 服务
+
+### HTML 文件
+
+随便在项目目录(我的是：D:/xampp/htdocs/learn-http)下新建一个 HTML 文件，下载一个图片在 HTML 中引用。例如：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>P6 Referer头与防盗链</title>
+	</head>
+	<body>
+		<p>
+			<img src="./assets/apple.jpg" alt="" />
+		</p>
+	</body>
+</html>
+```
+
+然后在项目跟目录下新建文件 `.htaccess`，添加如下内容
+
+```
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !http://localhost/.* [NC]
+RewriteRule \.(jpg|png)$ https://picsum.photos/200/300
+```
+
+-   `RewriteEngine On`：开启重写
+-   `RewriteCond`: 重写条件
+-   `%{HTTP_REFERER}`：referer 头
+-   `!`：逻辑否
+-   `http://localhost/.*`: 正则表达，匹配以 `http://localhost/` 开头的任何字符串
+-   `[NC]`: 大小写不敏感
+-   `RewriteRule`：重写规则
+-   `\.(jpg|png)$`：任何以 `jpg` 或者 `png` 结尾的请求
+
+如果任何以 `jpg` `png` 结尾的请求中 referer 头不包含 `http://localhost/` 则重写为 `https://picsum.photos/200/300`。
+
+当然这么写完打开 HTML 页面是没有变化的，因为我们的 referer 头包括 `http://localhost`。
+
+可以将 `!` 感叹号去掉，此时任何 referer 头包括 `http://localhost` 都会被重写。
