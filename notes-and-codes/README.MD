@@ -120,3 +120,5 @@ RewriteRule \.(jpg|png)$ https://picsum.photos/200/300
 当然这么写完打开 HTML 页面是没有变化的，因为我们的 referer 头包括 `http://localhost`。
 
 可以将 `!` 感叹号去掉，此时任何 referer 头包括 `http://localhost` 都会被重写。
+
+(如果没有重写，看看是不是 cache 住了)
