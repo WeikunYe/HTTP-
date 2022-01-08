@@ -122,3 +122,54 @@ RewriteRule \.(jpg|png)$ https://picsum.photos/200/300
 可以将 `!` 感叹号去掉，此时任何 referer 头包括 `http://localhost` 都会被重写。
 
 (如果没有重写，看看是不是 cache 住了)
+
+## P7 HTTP 缓存详解
+
+-   本地没有缓存，直接请求资源
+-   响应头包括 `Etag` 资源标识符 `Last-Modified` 最后修改时间
+-   本地有缓存 请求头 `If-Modified-Since` 和 `If-Modified-Match`。
+-   服务器比对请求头资源的 `Etag` 和 modified 时间，如果匹配，则证明该资源在上次请求后没有变化，则返回 304。
+-   此时，浏览器就知道应该使用缓存的资源
+
+**具体 Apache .htaccess 省略**
+
+## P8 HTTP 内容压缩
+
+打开一个网页，`Content-length` 如果小于保存下来的源码，说明服务器用了压缩协议
+
+可查看响应头的 `Content-Encoding`
+
+**服务器配置时，需要指定压缩的文件类型，因为有时候压缩 视频、图片等文件的效果并不好，且耗费 CPU**
+
+```
+Content-Encoding: gzip
+Content-Encoding: compress
+Content-Encoding: deflate
+Content-Encoding: br
+
+// Multiple, in the order in which they were applied
+Content-Encoding: deflate, gzip
+```
+
+请求头是 `Accept-Encoding` 告诉服务器：客户端可以接受哪些压缩方式
+
+```
+Accept-Encoding: gzip
+Accept-Encoding: compress
+Accept-Encoding: deflate
+Accept-Encoding: br
+Accept-Encoding: identity
+Accept-Encoding: *
+
+// Multiple algorithms, weighted with the quality value syntax:
+//优先级，无后缀默认为1
+Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5
+```
+
+做采集（爬虫？）时，可以采集 gzip 提高速度，然后再解压。
+
+## P9 Comet 反向 Ajax
+
+`Transfer-Encoding: chunked`
+
+数据以一系列分块的形式进行发送。 Content-Length 首部在这种情况下不被发送。。在每一个分块的开头需要添加当前分块的长度，以十六进制的形式表示，后面紧跟着 '\r\n' ，之后是分块本身，后面也是'\r\n' 。终止块是一个常规的分块，不同之处在于其长度为 0。终止块后面是一个挂载（trailer），由一系列（或者为空）的实体消息首部构成。
